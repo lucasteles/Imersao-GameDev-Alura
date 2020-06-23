@@ -1,11 +1,12 @@
-$bg-color: #283747;
-$txt-color: white;
 
 body {
+    --bg-color: #283747;
+    --txt-color: white;
+
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
-    background-color: $bg-color;
+    background-color: var(--bg-color);
     color: white;
     font-family: 'Montserrat', sans-serif;
 }
