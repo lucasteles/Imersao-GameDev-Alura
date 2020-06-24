@@ -18,12 +18,12 @@ export function preload() {
 
 export function setup() {
   p5.createCanvas(p5.windowWidth, p5.windowHeight)
-  p5.frameRate(30)
+  p5.frameRate(40)
 
   cenario = new Cenario(imagemCenario, 5)
   personagem = new Personagem(imagemPersonagem)
-
-  // musica.play()
+  musica.loop()
+  musica.setVolume(.1)
 }
 
 export function draw() {

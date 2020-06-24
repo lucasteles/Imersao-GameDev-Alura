@@ -11,20 +11,20 @@ export class Personagem {
 
   constructor(private readonly imagem: P5.Image) {
       this.frames = this.calcularPontos()
-
   }
 
   calcularPontos(): readonly Ponto[] {
 
       const numeroDeLinhasEColunas = 4
-      const linhas = range(0, numeroDeLinhasEColunas)
-                      .map(i => i * this.tamanhoSprite.width)
 
       const colunas = range(0, numeroDeLinhasEColunas)
-                      .map((_, i) => i * this.tamanhoSprite.height)
+                      .map((_, i) => i * this.tamanhoSprite.width)
 
-      const pontosCalculados = xprod( linhas, colunas)
-        .map(par => <Ponto>{ x : par[0], y : par[1] })
+      const linhas = range(0, numeroDeLinhasEColunas)
+                      .map(i => i * this.tamanhoSprite.height)
+
+      const pontosCalculados = xprod(linhas, colunas)
+        .map(([y, x]) => <Ponto>{ x, y })
 
       return pontosCalculados
   }
