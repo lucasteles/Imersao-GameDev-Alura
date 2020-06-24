@@ -1,7 +1,7 @@
 import { InformaçõesSpriteSheet } from './util'
 import { AnimacaoSprite } from './animacaoSprite'
 
-export class Personagem {
+export class Inimigo {
 
   personagem: AnimacaoSprite
 
@@ -11,23 +11,17 @@ export class Personagem {
 
   private criarPersonagem(imagem: P5.Image) {
 
-    const numeroDeLinhasEColunas = 4
-    const tamanhoNaTela = { width: 110, height: 135 }
-    const tamanhoSprite = { width: 220, height: 270 }
+    const tamanhoNaTela = { width: 52, height: 52 }
+    const tamanhoSprite = { width: 104, height: 104 }
 
     const spriteInfo =  <InformaçõesSpriteSheet>{
-      numeroColunas: numeroDeLinhasEColunas,
-      numeroLinhas: numeroDeLinhasEColunas,
+      numeroColunas: 4,
+      numeroLinhas: 7,
       frame: tamanhoSprite,
       imagem: imagem,
     }
 
-    const posicao = {
-      x: 0,
-      y: p5.height - tamanhoNaTela.height,
-    }
-
-    return new AnimacaoSprite(spriteInfo, tamanhoNaTela, posicao)
+    return new AnimacaoSprite(spriteInfo, tamanhoNaTela)
   }
 
   draw() { this.personagem.draw() }
