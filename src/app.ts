@@ -23,7 +23,7 @@ export function setup() {
   cenario = new Cenario(imagemCenario, 5)
   personagem = new Personagem(imagemPersonagem)
 
-  musica.play()
+  // musica.play()
 }
 
 export function draw() {
@@ -31,4 +31,5 @@ export function draw() {
   cenario.update()
 
   personagem.draw()
+  personagem.update()
 } 

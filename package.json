@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@types/p5": "0.9.0",
-    "p5": "0.9.0"
+    "@types/ramda": "^0.27.6",
+    "p5": "0.9.0",
+    "ramda": "^0.27.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.4.0",
