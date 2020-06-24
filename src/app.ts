@@ -1,8 +1,15 @@
 
+let imagemCenario: P5.Image
+
+export function preload() {
+
+  imagemCenario = p5.loadImage('imagens/cenario/floresta.png')
+}
+
 export function setup() {
-    p5.background('red')
+
 }
 
 export function draw() {
-  console.log(1)
- } 
+  p5.background(imagemCenario)
+} 
