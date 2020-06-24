@@ -1,8 +1,8 @@
-import './styles.css'
+import '../styles.css'
 import P5 from 'p5'
 import 'p5/lib/addons/p5.dom'
 import 'p5/lib/addons/p5.sound'
-import { setup, draw } from './app'
+import { setup, draw } from '../app'
 import { preload } from './preload'
 
 const sketch = (p5: P5) => {

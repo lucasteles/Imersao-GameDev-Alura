@@ -1,5 +1,5 @@
 import { InformaçõesSpriteSheet } from './util'
-import { AnimacaoSprite } from './animacaoSprite'
+import { AnimacaoSprite } from './lib/animacaoSprite'
 
 export class Personagem {
 

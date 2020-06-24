@@ -1,7 +1,7 @@
 import { Cenario } from './cenario'
 import { Personagem } from './personagem'
 import { Inimigo } from './inimigo'
-import { getAssets } from './preload'
+import { getAssets } from './lib/preload'
 
 let cenario: Cenario
 let personagem: Personagem

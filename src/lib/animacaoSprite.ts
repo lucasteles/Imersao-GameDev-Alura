@@ -1,4 +1,4 @@
-import { Ponto, calcularPontos, InformaçõesSpriteSheet, ComTamanho } from './util'
+import { Ponto, calcularPontos, InformaçõesSpriteSheet, ComTamanho } from '../util'
 
 export class AnimacaoSprite {
 
