@@ -7,5 +7,6 @@ declare global {
   interface Window {
     p5: P5
   }
+  // eslint-disable-next-line no-var
   var p5: P5
 }

@@ -4,12 +4,19 @@
     "jsx": "preserve",
     "esModuleInterop": true,
     "sourceMap": true,
-    "allowJs": true,
+    "strictNullChecks": true,
+    "strict": true,
     "lib": [
       "es6",
       "dom"
     ],
-    "rootDir": "src",
-    "moduleResolution": "node"
-  }
+  },
+  "include": [
+    "src", "global.d.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "**/__tests__/*",
+    "**/*.spec.*"
+  ]
 }
