@@ -7,9 +7,9 @@ export function preload() {
 }
 
 export function setup() {
-
+  p5.createCanvas(p5.windowWidth, p5.windowHeight)
+  p5.background(imagemCenario)
 }
 
 export function draw() {
-  p5.background(imagemCenario)
 } 
