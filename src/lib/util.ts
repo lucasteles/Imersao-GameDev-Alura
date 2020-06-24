@@ -5,12 +5,12 @@ export interface Ponto {
   y: number
 }
 
-export interface ComTamanho {
+export interface Mensuravel {
   width: number
   height: number
 }
 
-export type Retangulo = Ponto & ComTamanho
+export type Retangulo = Ponto & Mensuravel
 
 export function ponto(x: number, y: number) {
   return <Ponto>{ x, y }
@@ -19,7 +19,7 @@ export function ponto(x: number, y: number) {
 export interface InformaçõesSpriteSheet {
   numeroLinhas: number
   numeroColunas: number
-  frame: ComTamanho
+  frame: Mensuravel
   imagem: P5.Image
 }
 

@@ -12,7 +12,7 @@ export function setup() {
   p5.createCanvas(p5.windowWidth, p5.windowHeight)
 
   cenario = new Cenario(assets.imagemCenario, 5)
-  personagem = new Personagem(assets.imagemPersonagem)
+  personagem = new Personagem(assets.imagemPersonagem, assets.somPulo)
   gotinha = new Inimigo(assets.imagemGotinha)
 
   p5.frameRate(40)
@@ -29,9 +29,15 @@ export function draw() {
   cenario.draw()
   cenario.update()
 
+
+  if (personagem.colidiu(gotinha))
+    p5.noLoop()
+
   personagem.draw()
   personagem.update()
 
   gotinha.draw()
   gotinha.update()
+
+
 } 

@@ -1,5 +1,12 @@
-import { InformaçõesSpriteSheet, Ponto } from './lib/util'
+import { InformaçõesSpriteSheet, Ponto, Retangulo } from './lib/util'
 import { AnimacaoSprite } from './lib/animacaoSprite'
+import { Inimigo } from './inimigo'
+
+enum EstadoPersonagem {
+  Correndo,
+  Pulo,
+  PuloDuplo
+}
 
 export class Personagem {
 
@@ -8,10 +15,9 @@ export class Personagem {
   gravidade = 3
 
   posicaoInicial: Ponto = { x: 0, y: 0 }
+  estado: EstadoPersonagem = EstadoPersonagem.Correndo
 
-  constructor(imagem: P5.Image) {
-
-
+  constructor(imagem: P5.Image, private readonly somPulo: P5.SoundFile) {
     this.anim = this.criarPersonagem(imagem)
   }
 
@@ -39,15 +45,45 @@ export class Personagem {
   aplicaGravidade() {
     this.anim.y += this.forçaPulo
     this.forçaPulo += this.gravidade
+    this.checaChão()
+  }
 
-    if (this.anim.y > this.posicaoInicial.y)
+  checaChão() {
+    if (this.anim.y > this.posicaoInicial.y) {
       this.anim.y = this.posicaoInicial.y
+      this.estado = EstadoPersonagem.Correndo
+    }
   }
 
   draw() { this.anim.draw() }
 
   pula() {
+
+    switch (this.estado) {
+      case EstadoPersonagem.Correndo:
+        this.estado = EstadoPersonagem.Pulo
+        break
+      case EstadoPersonagem.Pulo:
+        this.estado = EstadoPersonagem.PuloDuplo
+        break
+      case EstadoPersonagem.PuloDuplo:
+        return
+    }
+
+    this.somPulo.play()
     this.forçaPulo = -30
+  }
+
+  colidiu(inimigo: Inimigo) {
+    const eu = this.anim.retangulo
+    const ele = inimigo.anim.retangulo
+    const precisao = .7
+
+    return p5.collideRectRect(
+      eu.x, eu.y, eu.width * precisao, eu.height * precisao,
+      ele.x, ele.y, ele.width, ele.height
+    )
+
   }
 
   update() {
