@@ -18,7 +18,7 @@ export class Personagem {
       const numeroDeLinhasEColunas = 4
 
       const colunas = range(0, numeroDeLinhasEColunas)
-                      .map((_, i) => i * this.tamanhoSprite.width)
+                      .map(i => i * this.tamanhoSprite.width)
 
       const linhas = range(0, numeroDeLinhasEColunas)
                       .map(i => i * this.tamanhoSprite.height)
