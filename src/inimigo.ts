@@ -1,12 +1,17 @@
-import { InformaçõesSpriteSheet } from './util'
+import { InformaçõesSpriteSheet, Ponto } from './util'
 import { AnimacaoSprite } from './animacaoSprite'
 
 export class Inimigo {
 
-  personagem: AnimacaoSprite
+  anim: AnimacaoSprite
+  velocidade = 5
 
   constructor(imagem: P5.Image) {
-    this.personagem = this.criarPersonagem(imagem)
+    this.anim = this.criarPersonagem(imagem)
+
+    this.anim.posicao = {
+        x: p5.width, y: p5.height - this.anim.tamanhoNaTela.height
+    } 
   }
 
   private criarPersonagem(imagem: P5.Image) {
@@ -14,7 +19,7 @@ export class Inimigo {
     const tamanhoNaTela = { width: 52, height: 52 }
     const tamanhoSprite = { width: 104, height: 104 }
 
-    const spriteInfo =  <InformaçõesSpriteSheet>{
+    const spriteInfo = <InformaçõesSpriteSheet>{
       numeroColunas: 4,
       numeroLinhas: 7,
       frame: tamanhoSprite,
@@ -24,6 +29,15 @@ export class Inimigo {
     return new AnimacaoSprite(spriteInfo, tamanhoNaTela)
   }
 
-  draw() { this.personagem.draw() }
-  update() { this.personagem.update() }
+  draw() { this.anim.draw() }
+
+  update() {
+    this.anim.update()
+    this.anim.x -= this.velocidade
+
+    if (this.anim.x < -this.anim.tamanhoNaTela.width)
+      this.anim.x = p5.width
+  }
+
+
 }

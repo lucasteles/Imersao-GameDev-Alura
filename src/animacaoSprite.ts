@@ -2,19 +2,24 @@ import { Ponto, calcularPontos, InformaçõesSpriteSheet, ComTamanho } from './u
 
 export class AnimacaoSprite {
 
-  frames: readonly Ponto[]
-  frameAtual = 0
+  private readonly frames: readonly Ponto[]
+  private frameAtual = 0
 
-  readonly posicao: Ponto
+  posicao: Ponto
 
   constructor(
-    private readonly spriteInfo: InformaçõesSpriteSheet,
-    private readonly tamanhoNaTela: ComTamanho,
+    readonly spriteInfo: InformaçõesSpriteSheet,
+    readonly tamanhoNaTela: ComTamanho,
     posicao?: Ponto
   ) {
     this.posicao = posicao ?? { x: 0, y: 0 }
     this.frames = calcularPontos(spriteInfo)
   }
+
+  get x() { return this.posicao.x }
+  set x(v) { this.posicao.x = v }
+  get y() { return this.posicao.y }
+  set y(v) { this.posicao.y = v }
 
   update() {
     this.frameAtual = ++this.frameAtual % this.frames.length
