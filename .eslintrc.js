@@ -30,7 +30,8 @@ module.exports = {
             "error",
             "never"
         ],
-        "@typescript-eslint/explicit-function-return-type": "off"
+        "@typescript-eslint/explicit-function-return-type": "off",
+        'quotes': [2, 'single', { "avoidEscape": true }],
     },
     "overrides": [
         {
