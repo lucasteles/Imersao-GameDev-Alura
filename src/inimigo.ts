@@ -1,10 +1,10 @@
-import { InformaçõesSpriteSheet } from './util'
+import { InformaçõesSpriteSheet } from './lib/util'
 import { AnimacaoSprite } from './lib/animacaoSprite'
 
 export class Inimigo {
 
   anim: AnimacaoSprite
-  velocidade = 5
+  velocidade = 8
 
   constructor(imagem: P5.Image) {
     this.anim = this.criarPersonagem(imagem)

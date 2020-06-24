@@ -1,4 +1,4 @@
-import { Ponto, calcularPontos, InformaçõesSpriteSheet, ComTamanho } from '../util'
+import { Ponto, calcularPontos, InformaçõesSpriteSheet, ComTamanho } from './util'
 
 export class AnimacaoSprite {
 
@@ -12,7 +12,7 @@ export class AnimacaoSprite {
     readonly tamanhoNaTela: ComTamanho,
     posicao?: Ponto
   ) {
-    this.posicao = posicao ?? { x: 0, y: 0 }
+    this.posicao = <Ponto>{ ...posicao }  ?? { x: 0, y: 0 }
     this.frames = calcularPontos(spriteInfo)
   }
 

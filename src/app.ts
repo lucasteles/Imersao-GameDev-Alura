@@ -9,14 +9,20 @@ let gotinha: Inimigo
 
 export function setup() {
   const assets = getAssets()
-
   p5.createCanvas(p5.windowWidth, p5.windowHeight)
-  p5.frameRate(40)
+
   cenario = new Cenario(assets.imagemCenario, 5)
   personagem = new Personagem(assets.imagemPersonagem)
   gotinha = new Inimigo(assets.imagemGotinha)
+
+  p5.frameRate(40)
   assets.musica.loop()
   assets.musica.setVolume(.1)
+}
+
+export function keyPressed() {
+  if (p5.key === 'ArrowUp')
+    personagem.pula()
 }
 
 export function draw() {
