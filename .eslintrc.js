@@ -8,7 +8,7 @@ module.exports = {
         "plugin:@typescript-eslint/recommended" 
     ],
     "parserOptions": {
-        "project": "tsconfig.eslint.json",
+        "project": "tsconfig.json",
         "sourceType": "module"
     },
     "plugins": [ "@typescript-eslint" ],
@@ -31,6 +31,7 @@ module.exports = {
             "never"
         ],
         "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
         'quotes': [2, 'single', { "avoidEscape": true }],
     },
     "overrides": [
