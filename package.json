@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@types/p5": "0.9.0",
-    "p5": "1.0.0"
+    "p5": "0.9.0"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
