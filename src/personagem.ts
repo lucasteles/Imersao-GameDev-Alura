@@ -4,7 +4,7 @@ import { range, xprod } from 'ramda'
 export class Personagem {
 
   frames: readonly Ponto[]
-  frameAtual = 1
+  frameAtual = 0
 
   tamanhoNaTela = { width: 110, height: 135 }
   tamanhoSprite = { width: 220, height: 270 }
@@ -30,17 +30,12 @@ export class Personagem {
   }
   
   update() {
-    
-    this.frameAtual++
-    if (this.frameAtual >= this.frames.length)
-      this.frameAtual = 0
-
+    this.frameAtual = ++this.frameAtual % this.frames.length
   }
 
   draw() {
 
     const posicaoDoFrame = this.frames[this.frameAtual]
-
     const posicao: Ponto = {
       x: 0, 
       y: p5.height - this.tamanhoNaTela.height,

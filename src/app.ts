@@ -9,7 +9,6 @@ let cenario: Cenario
 let personagem: Personagem
 
 
-
 export function preload() {
   imagemCenario = p5.loadImage('imagens/cenario/floresta.png')
   imagemPersonagem = p5.loadImage('imagens/personagem/correndo.png')
