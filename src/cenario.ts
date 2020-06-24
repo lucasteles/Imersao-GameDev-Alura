@@ -12,6 +12,12 @@ export class Cenario {
   update() {
     this.image1X -= this.velocidade
     this.image2X -= this.velocidade
+
+    if (this.image1X < -p5.width)
+      this.image1X = p5.width
+
+    if (this.image2X < -p5.width)
+      this.image2X = p5.width
   }
 
   draw() {
