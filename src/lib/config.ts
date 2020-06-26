@@ -1,0 +1,1 @@
+export const ALTURA_MINIMA = 30

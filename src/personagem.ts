@@ -1,6 +1,7 @@
-import { InformaçõesSpriteSheet, Ponto, Retangulo } from './lib/util'
+import { InformaçõesSpriteSheet, Ponto, ponto } from './lib/util'
 import { AnimacaoSprite } from './lib/animacaoSprite'
 import { Inimigo } from './inimigo'
+import { ALTURA_MINIMA } from './lib/config'
 
 enum EstadoPersonagem {
   Correndo,
@@ -14,7 +15,7 @@ export class Personagem {
   forçaPulo = 0
   gravidade = 3
 
-  posicaoInicial: Ponto = { x: 0, y: 0 }
+  posicaoInicial: Ponto = ponto(0, 0)
   estado: EstadoPersonagem = EstadoPersonagem.Correndo
 
   constructor(imagem: P5.Image, private readonly somPulo: P5.SoundFile) {
@@ -34,10 +35,10 @@ export class Personagem {
       imagem: imagem,
     }
 
-    this.posicaoInicial = {
-      x: 0,
-      y: p5.height - tamanhoNaTela.height,
-    }
+    this.posicaoInicial = ponto(
+      0,
+      p5.height - tamanhoNaTela.height - ALTURA_MINIMA,
+    )
 
     return new AnimacaoSprite(spriteInfo, tamanhoNaTela, this.posicaoInicial)
   }

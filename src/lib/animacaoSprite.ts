@@ -1,11 +1,11 @@
-import { Ponto, calcularPontos, InformaçõesSpriteSheet, Mensuravel, Retangulo } from './util'
+import { Ponto, calcularPontos, InformaçõesSpriteSheet, Mensuravel, Retangulo, ponto } from './util'
 
 export class AnimacaoSprite {
 
   private readonly frames: readonly Ponto[]
   private frameAtual = 0
-  debug = false
 
+  debug = false
   posicao: Ponto
 
   constructor(
@@ -13,7 +13,7 @@ export class AnimacaoSprite {
     readonly tamanhoNaTela: Mensuravel,
     posicao?: Ponto
   ) {
-    this.posicao = <Ponto>{ ...posicao } ?? { x: 0, y: 0 }
+    this.posicao = posicao ? ponto(posicao.x, posicao.y) : ponto(0, 0)
     this.frames = calcularPontos(spriteInfo)
   }
 

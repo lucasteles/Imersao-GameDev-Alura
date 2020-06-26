@@ -1,4 +1,4 @@
-import { InformaçõesSpriteSheet } from './lib/util'
+import { InformaçõesSpriteSheet, ponto } from './lib/util'
 import { AnimacaoSprite } from './lib/animacaoSprite'
 
 export class Inimigo {
@@ -9,9 +9,9 @@ export class Inimigo {
   constructor(imagem: P5.Image) {
     this.anim = this.criarPersonagem(imagem)
 
-    this.anim.posicao = {
-        x: p5.width, y: p5.height - this.anim.tamanhoNaTela.height
-    } 
+    this.anim.posicao = ponto(
+         p5.width,  p5.height - this.anim.tamanhoNaTela.height
+    )
   }
 
   private criarPersonagem(imagem: P5.Image) {

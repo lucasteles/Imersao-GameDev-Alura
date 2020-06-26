@@ -1,19 +1,16 @@
 import { range, xprod } from 'ramda'
 
-export interface Ponto {
-  x: number
-  y: number
-}
+export type Ponto = P5.Vector
 
 export interface Mensuravel {
   width: number
   height: number
 }
 
-export type Retangulo = Ponto & Mensuravel
+export type Retangulo = P5.Vector & Mensuravel
 
 export function ponto(x: number, y: number) {
-  return <Ponto>{ x, y }
+  return p5.createVector(x, y)
 }
 
 export interface InformaçõesSpriteSheet {
@@ -23,8 +20,8 @@ export interface InformaçõesSpriteSheet {
   imagem: P5.Image
 }
 
-export function calcularPontos({ 
-  numeroColunas, numeroLinhas, frame: { width, height} 
+export function calcularPontos({
+  numeroColunas, numeroLinhas, frame: { width, height }
 }: InformaçõesSpriteSheet): readonly Ponto[] {
 
   const colunas = range(0, numeroColunas)
