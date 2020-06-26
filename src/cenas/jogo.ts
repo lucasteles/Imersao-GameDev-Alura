@@ -38,10 +38,8 @@ export class JogoCena implements Cena {
     if (p5.key === 'ArrowUp')
       this.personagem.pula()
 
-    if (p5.key && this.gameOver) {
+    if (p5.key && this.gameOver)
       this.reiniciar()
-
-    }
   }
 
   private reiniciar() {
@@ -85,6 +83,9 @@ export class JogoCena implements Cena {
       this.dano()
 
     this.pontuacao.adicionarPonto()
+
+    if (this.pontuacao.pontos % 1000 === 0)
+      this.vida.ganhaVida()
   }
 
 }
