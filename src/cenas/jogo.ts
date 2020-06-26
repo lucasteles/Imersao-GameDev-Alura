@@ -11,7 +11,8 @@ export class JogoCena implements Cena {
   cenario: Cenario
   personagem: Personagem
   pontuacao: Pontuação
-  gameOver: P5.Image
+  gameOverImage: P5.Image
+  gameOver = false
 
   constructor(
     private assets: AssetsDoJogo,
@@ -20,13 +21,17 @@ export class JogoCena implements Cena {
     this.personagem = new Personagem(assets.imagemPersonagem, assets.somPulo)
     this.pontuacao = new Pontuação()
     this.gerenciadorInimigos = new GerenciadorInimigos(assets)
-    this.gameOver = assets.imagemGameOver
+    this.gameOverImage = assets.imagemGameOver
   }
 
-  exibeGameOver = () =>
-    p5.image(this.gameOver,
-      p5.width / 2 - this.gameOver.width / 2,
-      p5.height / 2 - this.gameOver.height / 2)
+  perdeu() {
+    p5.image(this.gameOverImage,
+      p5.width / 2 - this.gameOverImage.width / 2,
+      p5.height / 2 - this.gameOverImage.height / 2)
+
+    this.gameOver = true
+    p5.noLoop()
+  }
 
   setup() {
     this.assets.musica.loop()
@@ -37,23 +42,27 @@ export class JogoCena implements Cena {
     if (p5.key === 'ArrowUp')
       this.personagem.pula()
 
+    if (p5.key === 'Enter' && this.gameOver) {
+      this.gameOver = false
+      this.gerenciadorInimigos.resetar()
+      p5.loop()
+    }
+
   }
   draw() {
     this.cenario.draw()
-    this.cenario.update()
-    this.pontuacao.draw()
-    this.pontuacao.adicionarPonto()
-
-    this.gerenciadorInimigos.update()
-    this.gerenciadorInimigos.draw()
-
-    if (this.personagem.colidiu(this.gerenciadorInimigos.inimigoAtual)) {
-      this.exibeGameOver()
-      p5.noLoop()
-    }
-
     this.personagem.draw()
+    this.gerenciadorInimigos.draw()
+    this.pontuacao.draw()
+
+    this.cenario.update()
     this.personagem.update()
+    this.gerenciadorInimigos.update()
+
+    if (this.personagem.colidiu(this.gerenciadorInimigos.inimigoAtual))
+      this.perdeu()
+
+    this.pontuacao.adicionarPonto()
   }
 
 }

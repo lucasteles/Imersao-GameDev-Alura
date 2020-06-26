@@ -25,9 +25,7 @@ export class GerenciadorInimigos {
     this.inimigoAtual.update()
 
     if (this.inimigoAtual.estaForaDaTela()) {
-      this.proximoInimigo()
-      this.inimigoAtual.reposicionar()
-      this.inimigoAtual.velocidade = Math.floor(p5.random(8, 15))
+      this.resetar()
     }
 
   }
@@ -39,5 +37,12 @@ export class GerenciadorInimigos {
   draw() {
     this.inimigoAtual.draw()
   }
+
+  resetar() {
+    this.proximoInimigo()
+    this.inimigoAtual.reposicionar()
+    this.inimigoAtual.velocidade = Math.floor(p5.random(8, 15))
+  }
+
 
 }

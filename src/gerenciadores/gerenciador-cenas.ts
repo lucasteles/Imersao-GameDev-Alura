@@ -32,5 +32,4 @@ export class GerenciadorCenas {
   draw() {
     this.cenaAtual.draw()
   }
-
 }
