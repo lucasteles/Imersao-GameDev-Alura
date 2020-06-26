@@ -41,7 +41,7 @@ export class GerenciadorInimigos {
   resetar() {
     this.proximoInimigo()
     this.inimigoAtual.reposicionar()
-    this.inimigoAtual.velocidade = Math.floor(p5.random(8, 15))
+    this.inimigoAtual.velocidade = Math.floor(p5.random(10, 30))
   }
 
 

@@ -7,6 +7,7 @@ const obterCenas = (assets: AssetsDoJogo, gerenciador: GerenciadorCenas) => ({
   inicio: new InicioCena(assets, gerenciador),
 })
 
+
 type CenasDisponiveis = ReturnType<typeof obterCenas>
 export type NomeCena = keyof CenasDisponiveis
 

@@ -11,11 +11,10 @@ export function setup() {
   p5.frameRate(40)
 
   gerenciadorDeCenas = new GerenciadorCenas(assets, 'inicio')
-
 }
 
 export function keyPressed() {
-  if (p5.key === 'Control')
+  if (p5.key === ' ')
     toggleDebugState()
 
   gerenciadorDeCenas.cenaAtual.keyPressed()
