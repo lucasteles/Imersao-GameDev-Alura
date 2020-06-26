@@ -1,12 +1,12 @@
 import { Ponto, calcularPontos, InformaçõesSpriteSheet, Mensuravel, Retangulo, ponto } from './lib/util'
-import { DEBUG } from './lib/config'
+import { getDebugState } from './lib/config'
 
 export class AnimacaoSprite {
 
-  private readonly frames: readonly Ponto[]
-  private frameAtual = 0
+  readonly #frames: readonly Ponto[]
+  #frameAtual = 0
 
-  debug = DEBUG
+  debug?: boolean 
   posicaoInicial: Ponto
   posicao: Ponto
   colisorBase: Retangulo
@@ -19,11 +19,8 @@ export class AnimacaoSprite {
   ) {
     this.posicao = ponto(posicao.x, p5.height - tamanhoNaTela.height - posicao.y)
     this.posicaoInicial = ponto(this.posicao.x, this.posicao.y)
-    this.frames = calcularPontos(spriteInfo)
+    this.#frames = calcularPontos(spriteInfo)
     this.colisorBase = this.ajustarColisor(colisor)
-
-
-    console.log(this.colisorBase)
   }
 
   get x() { return this.posicao.x }
@@ -50,11 +47,11 @@ export class AnimacaoSprite {
   }
 
   update() {
-    this.frameAtual = ++this.frameAtual % this.frames.length
+    this.#frameAtual = ++this.#frameAtual % this.#frames.length
   }
 
   draw() {
-    const posicaoDoFrame = this.frames[this.frameAtual]
+    const posicaoDoFrame = this.#frames[this.#frameAtual]
     p5.image(
       this.spriteInfo.imagem,
       this.posicao.x, this.posicao.y,
@@ -62,7 +59,7 @@ export class AnimacaoSprite {
       posicaoDoFrame.x, posicaoDoFrame.y,
       this.spriteInfo.frame.width, this.spriteInfo.frame.height)
 
-    if (this.debug) {
+    if (this.debug || getDebugState()) {
       p5.push()
       p5.fill(255, 0, 0, 90)
 

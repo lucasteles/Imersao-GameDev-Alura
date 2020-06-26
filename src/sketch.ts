@@ -7,6 +7,7 @@ import { gotinha } from './inimigos/gotinha'
 import { gotaVoadora } from './inimigos/gota-voadora'
 import { troll } from './inimigos/troll'
 import { Pontuação } from './pontuacao'
+import { toggleDebugState, setDebugState } from './lib/config'
 
 let cenario: Cenario
 let personagem: Personagem
@@ -31,9 +32,13 @@ export function setup() {
   p5.frameRate(40)
   assets.musica.loop()
   assets.musica.setVolume(.1)
+  setDebugState(true)
 }
 
 export function keyPressed() {
+  if (p5.key === 'Control')
+    toggleDebugState()
+
   if (p5.key === 'ArrowUp')
     personagem.pula()
 }
@@ -41,24 +46,20 @@ export function keyPressed() {
 export function draw() {
   cenario.draw()
   cenario.update()
-
   pontuacao.draw()
   pontuacao.adicionarPonto()
 
-  personagem.draw()
-  personagem.update()
-
   for (const inimigo of inimigos) {
-
     inimigo.draw()
     inimigo.update()
-    if (personagem.colidiu(inimigo))
-    {
-      p5.image(gameOver, 
-        p5.width / 2 - gameOver.width / 2, 
+    if (personagem.colidiu(inimigo)) {
+      p5.image(gameOver,
+        p5.width / 2 - gameOver.width / 2,
         p5.height / 2 - gameOver.height / 2)
       p5.noLoop()
     }
   }
 
+  personagem.draw()
+  personagem.update()
 } 

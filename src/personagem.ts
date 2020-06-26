@@ -1,4 +1,4 @@
-import { InformaçõesSpriteSheet, ponto, Retangulo, retangulo } from './lib/util'
+import { InformaçõesSpriteSheet, ponto, Retangulo } from './lib/util'
 import { AnimacaoSprite } from './animacaoSprite'
 import { ALTURA_MINIMA } from './lib/config'
 
@@ -15,7 +15,7 @@ const spriteInfo = (imagem: P5.Image) => <InformaçõesSpriteSheet>{
 
 const colisor: Retangulo = {
   x: 30, y: 20,
-  width: 50, height: 110  
+  width: 50, height: 110
 }
 
 const posicaoInicial = () => ponto(0, ALTURA_MINIMA)
@@ -71,10 +71,9 @@ export class Personagem extends AnimacaoSprite {
   colidiu(inimigo: AnimacaoSprite) {
     const eu = this.colisor
     const ele = inimigo.colisor
-    const precisao = .7
 
     return p5.collideRectRect(
-      eu.x, eu.y, eu.width * precisao, eu.height * precisao,
+      eu.x, eu.y, eu.width, eu.height,
       ele.x, ele.y, ele.width, ele.height
     )
 
