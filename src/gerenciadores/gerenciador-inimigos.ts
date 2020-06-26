@@ -1,11 +1,11 @@
-import { Inimigo } from './inimigo'
-import { AssetsDoJogo } from './preload'
+import { Inimigo } from '../inimigo'
+import { AssetsDoJogo } from '../preload'
 
-import { gotinha } from './inimigos/gotinha'
-import { gotaVoadora } from './inimigos/gota-voadora'
-import { troll } from './inimigos/troll'
+import { gotinha } from '../inimigos/gotinha'
+import { gotaVoadora } from '../inimigos/gota-voadora'
+import { troll } from '../inimigos/troll'
 
-export class GenerenciadorInimigos {
+export class GerenciadorInimigos {
 
   #inimigos: Inimigo[]
   #indiceInimigoAtual = 0
@@ -27,7 +27,7 @@ export class GenerenciadorInimigos {
     if (this.inimigoAtual.estaForaDaTela()) {
       this.proximoInimigo()
       this.inimigoAtual.reposicionar()
-      this.inimigoAtual.velocidade = p5.random(8, 15)
+      this.inimigoAtual.velocidade = Math.floor(p5.random(8, 15))
     }
 
   }

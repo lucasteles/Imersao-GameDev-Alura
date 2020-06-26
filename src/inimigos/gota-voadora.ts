@@ -1,4 +1,4 @@
-import { InformaçõesSpriteSheet, ponto, Retangulo } from '../lib/util'
+import { InformaçõesSpriteSheet, ponto, Retangulo } from '../lib/types'
 import { DadosInimigo } from './'
 
 const tamanhoNaTela = { width: 100, height: 100 }

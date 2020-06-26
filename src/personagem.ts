@@ -1,4 +1,4 @@
-import { InformaçõesSpriteSheet, ponto, Retangulo } from './lib/util'
+import { InformaçõesSpriteSheet, ponto, Retangulo } from './lib/types'
 import { AnimacaoSprite } from './animacaoSprite'
 import { ALTURA_MINIMA } from './lib/config'
 

@@ -1,12 +1,13 @@
-import { Ponto, calcularPontos, InformaçõesSpriteSheet, Mensuravel, Retangulo, ponto } from './lib/util'
+import { Ponto, InformaçõesSpriteSheet, Mensuravel, Retangulo, ponto } from './lib/types'
 import { getDebugState } from './lib/config'
+import { range, xprod } from 'ramda'
 
 export class AnimacaoSprite {
 
   readonly #frames: readonly Ponto[]
   #frameAtual = 0
 
-  debug?: boolean 
+  debug?: boolean
   posicaoInicial: Ponto
   posicao: Ponto
   colisorBase: Retangulo
@@ -75,6 +76,21 @@ export class AnimacaoSprite {
       p5.pop()
     }
   }
+}
 
 
+function calcularPontos({
+  numeroColunas, numeroLinhas, quadrosEmBranco, frame: { width, height }
+}: InformaçõesSpriteSheet): readonly Ponto[] {
+
+  const colunas = range(0, numeroColunas)
+    .map(i => i * width)
+
+  const linhas = range(0, numeroLinhas)
+    .map(i => i * height)
+
+  const pontosCalculados = xprod(linhas, colunas)
+    .map(([y, x]) => <Ponto>{ x, y })
+
+  return pontosCalculados.slice(0, pontosCalculados.length - (quadrosEmBranco || 0))
 }
