@@ -7,5 +7,4 @@ export interface DadosInimigo {
   posicaoInicial(): Ponto
   colisor?: Retangulo
   debug?: boolean
-  delay?: number
 }

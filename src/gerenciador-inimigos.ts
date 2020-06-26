@@ -11,7 +11,6 @@ export class GenerenciadorInimigos {
   #indiceInimigoAtual = 0
 
   constructor(assets: AssetsDoJogo) {
-
     const inimigo = new Inimigo(assets.imagemInimigo, gotinha)
     const inimigoGrande = new Inimigo(assets.imagemInimigoGrande, troll)
     const inimigoVoador = new Inimigo(assets.imagemVoador, gotaVoadora)
@@ -28,6 +27,7 @@ export class GenerenciadorInimigos {
     if (this.inimigoAtual.estaForaDaTela()) {
       this.proximoInimigo()
       this.inimigoAtual.reposicionar()
+      this.inimigoAtual.velocidade = p5.random(8, 15)
     }
 
   }

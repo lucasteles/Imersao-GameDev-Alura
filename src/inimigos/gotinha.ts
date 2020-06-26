@@ -25,6 +25,5 @@ export const gotinha: DadosInimigo = {
   getSpriteInfo,
   posicaoInicial,
   colisor,
-  delay: 200,
   debug: false,
 }
