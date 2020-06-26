@@ -11,6 +11,7 @@ export class AnimacaoSprite {
   posicaoInicial: Ponto
   posicao: Ponto
   colisorBase: Retangulo
+  exibe = true
 
   constructor(
     readonly spriteInfo: InformaçõesSpriteSheet,
@@ -52,6 +53,9 @@ export class AnimacaoSprite {
   }
 
   draw() {
+    if (!this.exibe)
+      return
+
     const posicaoDoFrame = this.#frames[this.#frameAtual]
     p5.image(
       this.spriteInfo.imagem,

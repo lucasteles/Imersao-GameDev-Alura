@@ -8,6 +8,7 @@ let telaInicial: P5.Image
 let musica: P5.SoundFile
 let somPulo: P5.SoundFile
 let fonteTelaInicial: P5.Font
+let imagemVida: P5.Image
 
 export function preload() {
   imagemCenario = p5.loadImage('imagens/cenario/floresta.png')
@@ -17,6 +18,7 @@ export function preload() {
   imagemInimigoGrande = p5.loadImage('imagens/inimigos/troll.png')
   imagemGameOver = p5.loadImage('imagens/assets/game-over.png')
   telaInicial = p5.loadImage('imagens/assets/telainicial.png')
+  imagemVida = p5.loadImage('imagens/assets/coracao.png')
   fonteTelaInicial = p5.loadFont('imagens/assets/fontetelainicial.otf')
   musica = p5.loadSound('sons/trilha_jogo.mp3')
   somPulo = p5.loadSound('sons/somPulo.mp3')
@@ -33,6 +35,7 @@ export const getAssets = () => ({
   somPulo,
   telaInicial,
   fonteTelaInicial,
+  imagemVida,
 })
 
 export type AssetsDoJogo = ReturnType<typeof getAssets>

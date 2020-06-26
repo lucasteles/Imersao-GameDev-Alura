@@ -28,47 +28,51 @@ enum EstadoPersonagem {
 
 export class Personagem extends AnimacaoSprite {
 
-  velocidadePulo = 0
-  gravidade = 6
+  #velocidadePulo = 0
+  #gravidade = 6
+  #estado: EstadoPersonagem = EstadoPersonagem.Correndo
+  #forçaPulo = -50
+  #contropeDePisca = 0
 
-  estado: EstadoPersonagem = EstadoPersonagem.Correndo
-  forçaPulo = -50
+  invencivel = false
 
   constructor(imagem: P5.Image, private readonly somPulo: P5.SoundFile) {
     super(spriteInfo(imagem), tamanhoNaTela, posicaoInicial(), colisor)
   }
 
   aplicaGravidade() {
-    this.y += this.velocidadePulo
-    this.velocidadePulo += this.gravidade
+    this.y += this.#velocidadePulo
+    this.#velocidadePulo += this.#gravidade
     this.checaChão()
   }
 
   checaChão() {
     if (this.y > this.posicaoInicial.y) {
       this.y = this.posicaoInicial.y
-      this.estado = EstadoPersonagem.Correndo
+      this.#estado = EstadoPersonagem.Correndo
     }
   }
 
   pula() {
 
-    switch (this.estado) {
+    switch (this.#estado) {
       case EstadoPersonagem.Correndo:
-        this.estado = EstadoPersonagem.Pulo
+        this.#estado = EstadoPersonagem.Pulo
         break
       case EstadoPersonagem.Pulo:
-        this.estado = EstadoPersonagem.PuloDuplo
+        this.#estado = EstadoPersonagem.PuloDuplo
         break
       case EstadoPersonagem.PuloDuplo:
         return
     }
 
     this.somPulo.play()
-    this.velocidadePulo = this.forçaPulo
+    this.#velocidadePulo = this.#forçaPulo
   }
 
   colidiu(inimigo: AnimacaoSprite) {
+    if (this.invencivel) return false
+
     const eu = this.colisor
     const ele = inimigo.colisor
 
@@ -79,8 +83,28 @@ export class Personagem extends AnimacaoSprite {
 
   }
 
+  ficaInvensivel() {
+    this.invencivel = true
+    this.#contropeDePisca = 0
+    setTimeout(() => { 
+      this.invencivel = false 
+      this.exibe = true
+    }, 1000)
+  }
+
+  controlaPisca() {
+    if (!this.invencivel) return
+
+    this.#contropeDePisca++
+    if (this.#contropeDePisca % 2 === 0)
+      this.exibe = !this.exibe
+  }
+
   update() {
     this.aplicaGravidade()
+    this.controlaPisca()
+
     super.update()
   }
+
 }
