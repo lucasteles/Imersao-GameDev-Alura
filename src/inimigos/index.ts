@@ -1,4 +1,4 @@
-import { InformaçõesSpriteSheet, Ponto, Mensuravel } from '../lib/util'
+import { InformaçõesSpriteSheet, Ponto, Mensuravel, Retangulo } from '../lib/util'
 
 export interface DadosInimigo {
   tamanhoNaTela: Mensuravel
@@ -6,6 +6,7 @@ export interface DadosInimigo {
   getSpriteInfo(imagem: P5.Image): InformaçõesSpriteSheet
   posicaoInicial(): Ponto
   velocidade: number
+  colisor?: Retangulo
   debug?: boolean
   delay?: number
 }

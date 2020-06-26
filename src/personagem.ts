@@ -1,8 +1,6 @@
-import { InformaçõesSpriteSheet, ponto } from './lib/util'
-import { AnimacaoSprite } from './lib/animacaoSprite'
-import { Inimigo } from './inimigo'
+import { InformaçõesSpriteSheet, ponto, Retangulo, retangulo } from './lib/util'
+import { AnimacaoSprite } from './animacaoSprite'
 import { ALTURA_MINIMA } from './lib/config'
-
 
 const numeroDeLinhasEColunas = 4
 const tamanhoNaTela = { width: 110, height: 135 }
@@ -15,6 +13,11 @@ const spriteInfo = (imagem: P5.Image) => <InformaçõesSpriteSheet>{
   imagem: imagem,
 }
 
+const colisor: Retangulo = {
+  x: 30, y: 20,
+  width: 50, height: 110  
+}
+
 const posicaoInicial = () => ponto(0, ALTURA_MINIMA)
 
 enum EstadoPersonagem {
@@ -25,18 +28,19 @@ enum EstadoPersonagem {
 
 export class Personagem extends AnimacaoSprite {
 
-  forçaPulo = 0
-  gravidade = 3
+  velocidadePulo = 0
+  gravidade = 6
 
   estado: EstadoPersonagem = EstadoPersonagem.Correndo
+  forçaPulo = -50
 
   constructor(imagem: P5.Image, private readonly somPulo: P5.SoundFile) {
-    super(spriteInfo(imagem), tamanhoNaTela, posicaoInicial())
+    super(spriteInfo(imagem), tamanhoNaTela, posicaoInicial(), colisor)
   }
 
   aplicaGravidade() {
-    this.y += this.forçaPulo
-    this.forçaPulo += this.gravidade
+    this.y += this.velocidadePulo
+    this.velocidadePulo += this.gravidade
     this.checaChão()
   }
 
@@ -61,12 +65,12 @@ export class Personagem extends AnimacaoSprite {
     }
 
     this.somPulo.play()
-    this.forçaPulo = -30
+    this.velocidadePulo = this.forçaPulo
   }
 
   colidiu(inimigo: AnimacaoSprite) {
-    const eu = this.retangulo
-    const ele = inimigo.retangulo
+    const eu = this.colisor
+    const ele = inimigo.colisor
     const precisao = .7
 
     return p5.collideRectRect(

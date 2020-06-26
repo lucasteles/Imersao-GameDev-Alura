@@ -1,4 +1,4 @@
-import { AnimacaoSprite } from './lib/animacaoSprite'
+import { AnimacaoSprite } from './animacaoSprite'
 import { DadosInimigo } from './inimigos'
 
 export class Inimigo extends AnimacaoSprite {
@@ -8,9 +8,10 @@ export class Inimigo extends AnimacaoSprite {
     super(
       dadosInimigo.getSpriteInfo(imagem),
       dadosInimigo.tamanhoNaTela,
-      dadosInimigo.posicaoInicial())
+      dadosInimigo.posicaoInicial(),
+      dadosInimigo.colisor)
 
-    this.debug = dadosInimigo.debug ?? false
+    this.x += dadosInimigo.delay ?? 0 
   }
 
   update() {

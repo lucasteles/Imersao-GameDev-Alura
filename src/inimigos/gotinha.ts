@@ -1,4 +1,4 @@
-import { InformaçõesSpriteSheet, ponto } from '../lib/util'
+import { InformaçõesSpriteSheet, ponto, Retangulo } from '../lib/util'
 import { ALTURA_MINIMA } from '../lib/config'
 import { DadosInimigo } from './'
 
@@ -15,13 +15,17 @@ const posicaoInicial = () => ponto(
   p5.width, ALTURA_MINIMA
 )
 
+const colisor: Retangulo = {
+  x: 5, y: 5, height: 40, width: 40
+}
 
 export const gotinha: DadosInimigo = {
   tamanhoNaTela,
   tamanhoSprite,
   getSpriteInfo,
   posicaoInicial,
+  colisor,
   delay: 200,
-  velocidade: 8,
+  velocidade: 10,
   debug: false,
 }

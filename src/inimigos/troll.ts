@@ -1,4 +1,4 @@
-import { InformaçõesSpriteSheet, ponto } from '../lib/util'
+import { InformaçõesSpriteSheet, ponto, Retangulo } from '../lib/util'
 import { DadosInimigo } from '.'
 
 const tamanhoNaTela = { width: 200, height: 200 }
@@ -12,15 +12,20 @@ const getSpriteInfo = (imagem: P5.Image) => <InformaçõesSpriteSheet>{
   quadrosEmBranco: 2,
 }
 const posicaoInicial = () => ponto(
-  p5.width * 2, 0
+  p5.width, 0
 )
 
+const colisor: Retangulo = {
+  x: 80, y: 50, height: 110, width: 90
+}
+
 export const troll: DadosInimigo = {
-  debug:false,
+  debug: false,
   tamanhoNaTela,
   tamanhoSprite,
   getSpriteInfo,
   posicaoInicial,
-  velocidade: 6,
+  colisor,
+  velocidade: 10,
   delay: 2500,
 }

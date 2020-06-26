@@ -1,23 +1,29 @@
-import { Ponto, calcularPontos, InformaçõesSpriteSheet, Mensuravel, Retangulo, ponto } from './util'
-import { ALTURA_MINIMA } from './config'
+import { Ponto, calcularPontos, InformaçõesSpriteSheet, Mensuravel, Retangulo, ponto } from './lib/util'
+import { DEBUG } from './lib/config'
 
 export class AnimacaoSprite {
 
   private readonly frames: readonly Ponto[]
   private frameAtual = 0
 
-  debug = false
-  posicao: Ponto
+  debug = DEBUG
   posicaoInicial: Ponto
+  posicao: Ponto
+  colisorBase: Retangulo
 
   constructor(
     readonly spriteInfo: InformaçõesSpriteSheet,
     readonly tamanhoNaTela: Mensuravel,
-    posicao: Ponto
+    posicao: Ponto,
+    colisor?: Retangulo,
   ) {
     this.posicao = ponto(posicao.x, p5.height - tamanhoNaTela.height - posicao.y)
     this.posicaoInicial = ponto(this.posicao.x, this.posicao.y)
     this.frames = calcularPontos(spriteInfo)
+    this.colisorBase = this.ajustarColisor(colisor)
+
+
+    console.log(this.colisorBase)
   }
 
   get x() { return this.posicao.x }
@@ -25,11 +31,22 @@ export class AnimacaoSprite {
   get y() { return this.posicao.y }
   set y(v) { this.posicao.y = v }
 
-  get retangulo() {
-    return <Retangulo>{
-      ...this.posicao,
-      ...this.tamanhoNaTela
-    }
+  ajustarColisor(colisor?: Retangulo): Retangulo {
+    if (!colisor)
+      return <Retangulo>{ x: 0, y: 0, ...this.tamanhoNaTela }
+
+    return colisor
+  }
+
+  get colisor() {
+    return <Retangulo>
+      {
+        x: this.x + this.colisorBase.x,
+        y: this.y + this.colisorBase.y,
+        width: this.colisorBase.width,
+        height: this.colisorBase.height,
+      }
+
   }
 
   update() {
@@ -49,12 +66,14 @@ export class AnimacaoSprite {
       p5.push()
       p5.fill(255, 0, 0, 90)
 
+      const colisor = this.colisor
       p5.rect(
-        this.posicao.x, this.posicao.y,
-        this.tamanhoNaTela.width, this.tamanhoNaTela.height)
+        colisor.x, colisor.y,
+        colisor.width, colisor.height)
 
       p5.fill('white')
-      p5.text(`x:${this.x} y:${this.y}\nw:${this.tamanhoNaTela.width} h:${this.tamanhoNaTela.height}`, this.x, this.y)
+      p5.text(`x:${colisor.x} y:${colisor.y}\nw:${colisor.width} h:${colisor.height}`,
+        colisor.x, colisor.y)
 
       p5.pop()
     }

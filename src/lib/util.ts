@@ -1,13 +1,13 @@
 import { range, xprod } from 'ramda'
 
-export type Ponto = P5.Vector
+export type Ponto = { x: number; y: number } 
 
 export interface Mensuravel {
   width: number
   height: number
 }
 
-export type Retangulo = P5.Vector & Mensuravel
+export type Retangulo = Ponto & Mensuravel
 
 export function ponto(x: number, y: number) {
   return p5.createVector(x, y)
