@@ -1,7 +1,6 @@
 import { getAssets } from './preload'
 import { toggleDebugState, setDebugState } from './lib/config'
 import { GerenciadorCenas } from './gerenciadores/gerenciador-cenas'
-import { ESTADO_JOGO } from './lib/types'
 
 let gerenciadorDeCenas: GerenciadorCenas
 
