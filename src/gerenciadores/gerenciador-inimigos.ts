@@ -33,7 +33,7 @@ export class GerenciadorInimigos {
   }
 
   private proximoInimigo() {
-    this.#indiceInimigoAtual = ++this.#indiceInimigoAtual % this.#inimigos.length
+    this.#indiceInimigoAtual = Math.floor(p5.random(0, this.#inimigos.length))
   }
 
   draw() {
