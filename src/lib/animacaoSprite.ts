@@ -1,4 +1,5 @@
 import { Ponto, calcularPontos, InformaçõesSpriteSheet, Mensuravel, Retangulo, ponto } from './util'
+import { ALTURA_MINIMA } from './config'
 
 export class AnimacaoSprite {
 
@@ -7,13 +8,15 @@ export class AnimacaoSprite {
 
   debug = false
   posicao: Ponto
+  posicaoInicial: Ponto
 
   constructor(
     readonly spriteInfo: InformaçõesSpriteSheet,
     readonly tamanhoNaTela: Mensuravel,
-    posicao?: Ponto
+    posicao: Ponto
   ) {
-    this.posicao = posicao ? ponto(posicao.x, posicao.y) : ponto(0, 0)
+    this.posicao = ponto(posicao.x, p5.height - tamanhoNaTela.height - posicao.y)
+    this.posicaoInicial = ponto(this.posicao.x, this.posicao.y)
     this.frames = calcularPontos(spriteInfo)
   }
 
@@ -51,7 +54,7 @@ export class AnimacaoSprite {
         this.tamanhoNaTela.width, this.tamanhoNaTela.height)
 
       p5.fill('white')
-      p5.text(`x:${this.x} y:${this.y}\nw:${this.spriteInfo.frame.width} h:${this.spriteInfo.frame.height}`, this.x, this.y)
+      p5.text(`x:${this.x} y:${this.y}\nw:${this.tamanhoNaTela.width} h:${this.tamanhoNaTela.height}`, this.x, this.y)
 
       p5.pop()
     }

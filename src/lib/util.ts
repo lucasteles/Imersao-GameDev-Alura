@@ -18,10 +18,11 @@ export interface InformaçõesSpriteSheet {
   numeroColunas: number
   frame: Mensuravel
   imagem: P5.Image
+  quadrosEmBranco?: number
 }
 
 export function calcularPontos({
-  numeroColunas, numeroLinhas, frame: { width, height }
+  numeroColunas, numeroLinhas, quadrosEmBranco, frame: { width, height }
 }: InformaçõesSpriteSheet): readonly Ponto[] {
 
   const colunas = range(0, numeroColunas)
@@ -33,5 +34,5 @@ export function calcularPontos({
   const pontosCalculados = xprod(linhas, colunas)
     .map(([y, x]) => <Ponto>{ x, y })
 
-  return pontosCalculados
+  return pontosCalculados.slice(0, pontosCalculados.length - (quadrosEmBranco || 0))
 }

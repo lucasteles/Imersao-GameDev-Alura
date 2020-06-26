@@ -1,7 +1,21 @@
-import { InformaçõesSpriteSheet, Ponto, ponto } from './lib/util'
+import { InformaçõesSpriteSheet, ponto } from './lib/util'
 import { AnimacaoSprite } from './lib/animacaoSprite'
 import { Inimigo } from './inimigo'
 import { ALTURA_MINIMA } from './lib/config'
+
+
+const numeroDeLinhasEColunas = 4
+const tamanhoNaTela = { width: 110, height: 135 }
+const tamanhoSprite = { width: 220, height: 270 }
+
+const spriteInfo = (imagem: P5.Image) => <InformaçõesSpriteSheet>{
+  numeroColunas: numeroDeLinhasEColunas,
+  numeroLinhas: numeroDeLinhasEColunas,
+  frame: tamanhoSprite,
+  imagem: imagem,
+}
+
+const posicaoInicial = () => ponto(0, ALTURA_MINIMA)
 
 enum EstadoPersonagem {
   Correndo,
@@ -9,54 +23,29 @@ enum EstadoPersonagem {
   PuloDuplo
 }
 
-export class Personagem {
+export class Personagem extends AnimacaoSprite {
 
-  anim: AnimacaoSprite
   forçaPulo = 0
   gravidade = 3
 
-  posicaoInicial: Ponto = ponto(0, 0)
   estado: EstadoPersonagem = EstadoPersonagem.Correndo
 
   constructor(imagem: P5.Image, private readonly somPulo: P5.SoundFile) {
-    this.anim = this.criarPersonagem(imagem)
-  }
-
-  private criarPersonagem(imagem: P5.Image) {
-
-    const numeroDeLinhasEColunas = 4
-    const tamanhoNaTela = { width: 110, height: 135 }
-    const tamanhoSprite = { width: 220, height: 270 }
-
-    const spriteInfo = <InformaçõesSpriteSheet>{
-      numeroColunas: numeroDeLinhasEColunas,
-      numeroLinhas: numeroDeLinhasEColunas,
-      frame: tamanhoSprite,
-      imagem: imagem,
-    }
-
-    this.posicaoInicial = ponto(
-      0,
-      p5.height - tamanhoNaTela.height - ALTURA_MINIMA,
-    )
-
-    return new AnimacaoSprite(spriteInfo, tamanhoNaTela, this.posicaoInicial)
+    super(spriteInfo(imagem), tamanhoNaTela, posicaoInicial())
   }
 
   aplicaGravidade() {
-    this.anim.y += this.forçaPulo
+    this.y += this.forçaPulo
     this.forçaPulo += this.gravidade
     this.checaChão()
   }
 
   checaChão() {
-    if (this.anim.y > this.posicaoInicial.y) {
-      this.anim.y = this.posicaoInicial.y
+    if (this.y > this.posicaoInicial.y) {
+      this.y = this.posicaoInicial.y
       this.estado = EstadoPersonagem.Correndo
     }
   }
-
-  draw() { this.anim.draw() }
 
   pula() {
 
@@ -75,9 +64,9 @@ export class Personagem {
     this.forçaPulo = -30
   }
 
-  colidiu(inimigo: Inimigo) {
-    const eu = this.anim.retangulo
-    const ele = inimigo.anim.retangulo
+  colidiu(inimigo: AnimacaoSprite) {
+    const eu = this.retangulo
+    const ele = inimigo.retangulo
     const precisao = .7
 
     return p5.collideRectRect(
@@ -88,7 +77,7 @@ export class Personagem {
   }
 
   update() {
-    this.anim.update()
     this.aplicaGravidade()
+    super.update()
   }
 }

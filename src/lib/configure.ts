@@ -4,7 +4,7 @@ import P5 from 'p5'
 import 'p5/lib/addons/p5.dom'
 import 'p5/lib/addons/p5.sound'
 import '../collide2d'
-import { preload } from './preload'
+import { preload } from '../preload'
 import { setup, draw, keyPressed } from '../sketch'
 
 const sketch = (p5: P5) => {
