@@ -26,6 +26,5 @@ export const troll: DadosInimigo = {
   getSpriteInfo,
   posicaoInicial,
   colisor,
-  velocidade: 10,
-  delay: 2500,
+  delay: 1000,
 }

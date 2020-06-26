@@ -5,7 +5,6 @@ export interface DadosInimigo {
   tamanhoSprite: Mensuravel
   getSpriteInfo(imagem: P5.Image): InformaçõesSpriteSheet
   posicaoInicial(): Ponto
-  velocidade: number
   colisor?: Retangulo
   debug?: boolean
   delay?: number

@@ -25,8 +25,7 @@ export const gotaVoadora: DadosInimigo = {
   getSpriteInfo,
   posicaoInicial,
   colisor,
-  velocidade: 10,
-  delay: 1500,
+  delay: 300,
   debug: false,
 }
 

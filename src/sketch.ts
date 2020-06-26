@@ -1,38 +1,35 @@
 import { Cenario } from './cenario'
 import { Personagem } from './personagem'
-import { Inimigo } from './inimigo'
 import { getAssets } from './preload'
 
-import { gotinha } from './inimigos/gotinha'
-import { gotaVoadora } from './inimigos/gota-voadora'
-import { troll } from './inimigos/troll'
 import { Pontuação } from './pontuacao'
 import { toggleDebugState, setDebugState } from './lib/config'
+import { GenerenciadorInimigos } from './gerenciador-inimigos'
 
+let gerenciadorInimigos: GenerenciadorInimigos
 let cenario: Cenario
 let personagem: Personagem
-let inimigos: Inimigo[]
 let pontuacao: Pontuação
 let gameOver: P5.Image
+
+const exibeGameOver = () =>
+  p5.image(gameOver, p5.width / 2 - gameOver.width / 2, p5.height / 2 - gameOver.height / 2)
 
 export function setup() {
   const assets = getAssets()
   p5.createCanvas(p5.windowWidth, p5.windowHeight)
 
   cenario = new Cenario(assets.imagemCenario, 5)
+
   personagem = new Personagem(assets.imagemPersonagem, assets.somPulo)
   pontuacao = new Pontuação()
-
+  gerenciadorInimigos = new GenerenciadorInimigos(assets)
   gameOver = assets.imagemGameOver
-  const inimigo = new Inimigo(assets.imagemInimigo, gotinha)
-  const inimigoGrande = new Inimigo(assets.imagemInimigoGrande, troll)
-  const inimigoVoador = new Inimigo(assets.imagemVoador, gotaVoadora)
-  inimigos = [inimigo, inimigoGrande, inimigoVoador]
 
+  setDebugState(false)
   p5.frameRate(40)
   assets.musica.loop()
   assets.musica.setVolume(.1)
-  setDebugState(true)
 }
 
 export function keyPressed() {
@@ -49,15 +46,12 @@ export function draw() {
   pontuacao.draw()
   pontuacao.adicionarPonto()
 
-  for (const inimigo of inimigos) {
-    inimigo.draw()
-    inimigo.update()
-    if (personagem.colidiu(inimigo)) {
-      p5.image(gameOver,
-        p5.width / 2 - gameOver.width / 2,
-        p5.height / 2 - gameOver.height / 2)
-      p5.noLoop()
-    }
+  gerenciadorInimigos.update()
+  gerenciadorInimigos.draw()
+
+  if (personagem.colidiu(gerenciadorInimigos.inimigoAtual)) {
+    exibeGameOver()
+    p5.noLoop()
   }
 
   personagem.draw()

@@ -26,6 +26,5 @@ export const gotinha: DadosInimigo = {
   posicaoInicial,
   colisor,
   delay: 200,
-  velocidade: 10,
   debug: false,
 }

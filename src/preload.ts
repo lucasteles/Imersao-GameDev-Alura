@@ -1,3 +1,5 @@
+import { type } from "ramda"
+
 let imagemCenario: P5.Image
 let imagemPersonagem: P5.Image
 let imagemInimigo: P5.Image
@@ -28,3 +30,6 @@ export const getAssets = () => ({
   musica,
   somPulo,
 })
+
+
+export type AssetsDoJogo = ReturnType<typeof getAssets>
