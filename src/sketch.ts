@@ -26,7 +26,7 @@ export function setup() {
   gerenciadorInimigos = new GenerenciadorInimigos(assets)
   gameOver = assets.imagemGameOver
 
-  setDebugState(false)
+  setDebugState(true)
   p5.frameRate(40)
   assets.musica.loop()
   assets.musica.setVolume(.1)
