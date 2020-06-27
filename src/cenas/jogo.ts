@@ -1,7 +1,7 @@
 import { AssetsDoJogo } from '../preload'
 import { Pontuação } from '../pontuacao'
 import { Personagem } from '../personagem'
-import { GerenciadorInimigos } from '../gerenciadores/gerenciador-inimigos'
+import { GerenciadorInimigos, Dificuldade } from '../gerenciadores/gerenciador-inimigos'
 import { Cenario } from '../cenario'
 import { Cena } from '../lib/types'
 import { Vida } from '../vida'
@@ -14,6 +14,7 @@ export class JogoCena implements Cena {
   pontuacao: Pontuação
   vida: Vida
 
+  ultimaVida = 0
   gameOverImage: P5.Image
   gameOver = false
 
@@ -45,6 +46,7 @@ export class JogoCena implements Cena {
   private reiniciar() {
     this.gameOver = false
     this.gerenciadorInimigos.resetar()
+    this.ultimaVida = 0
     this.vida.resetar()
     p5.loop()
   }
@@ -68,6 +70,20 @@ export class JogoCena implements Cena {
     p5.noLoop()
   }
 
+  private ajustaDificuldade() {
+    const pontos = this.pontuacao.pontos
+
+    if (pontos !== this.ultimaVida && pontos % 100 === 0) {
+      this.vida.ganhaVida()
+      this.ultimaVida = pontos
+    }
+
+    if (pontos > 30)
+      this.gerenciadorInimigos.dificudade = Dificuldade.MEDIO
+    if (pontos > 100)
+      this.gerenciadorInimigos.dificudade = Dificuldade.DIFICIL
+  }
+
   draw() {
     this.cenario.draw()
     this.personagem.draw()
@@ -79,13 +95,11 @@ export class JogoCena implements Cena {
     this.personagem.update()
     this.gerenciadorInimigos.update()
 
-    if (this.personagem.colidiu(this.gerenciadorInimigos.inimigoAtual))
+    if (this.personagem.colidiuComVarios(this.gerenciadorInimigos.inimigos))
       this.dano()
 
     this.pontuacao.adicionarPonto()
-
-    if (this.pontuacao.pontos % 1000 === 0)
-      this.vida.ganhaVida()
+    this.ajustaDificuldade()
   }
 
 }

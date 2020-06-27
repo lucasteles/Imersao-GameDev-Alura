@@ -2,7 +2,6 @@ import { AnimacaoSprite } from './animacaoSprite'
 import { DadosInimigo } from './inimigos'
 
 export class Inimigo extends AnimacaoSprite {
-
   velocidade = 10
 
   constructor(
@@ -28,5 +27,8 @@ export class Inimigo extends AnimacaoSprite {
     return (this.x < -this.tamanhoNaTela.width)
   }
 
+  noMeioDaTela() {
+    return (this.x < -this.tamanhoNaTela.width / 2)
+  }
 
 }

@@ -29,6 +29,7 @@ export class Vida {
   }
 
   ganhaVida() {
+    console.log('VIIIIDA')
     if (this.#vidas < this.total)
       this.#vidas++
   }

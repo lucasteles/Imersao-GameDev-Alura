@@ -1,4 +1,4 @@
-import { Ponto } from "./lib/types";
+import { Ponto } from './lib/types'
 
 export class Botao {
   #htmlBotao: P5.Element

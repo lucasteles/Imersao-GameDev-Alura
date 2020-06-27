@@ -5,44 +5,80 @@ import { gotinha } from '../inimigos/gotinha'
 import { gotaVoadora } from '../inimigos/gota-voadora'
 import { troll } from '../inimigos/troll'
 
+export enum Dificuldade {
+  FACIL, MEDIO, DIFICIL
+}
+
 export class GerenciadorInimigos {
 
-  #inimigos: Inimigo[]
-  #indiceInimigoAtual = 0
+  #tiposInimigos: (() => Inimigo)[]
+  #inimigos: Inimigo[] = []
+
+  dificudade = Dificuldade.FACIL
 
   constructor(assets: AssetsDoJogo) {
-    const inimigo = new Inimigo(assets.imagemInimigo, gotinha)
-    const inimigoGrande = new Inimigo(assets.imagemInimigoGrande, troll)
-    const inimigoVoador = new Inimigo(assets.imagemVoador, gotaVoadora)
-    this.#inimigos = [inimigo, inimigoGrande, inimigoVoador]
+    const inimigo = () => new Inimigo(assets.imagemInimigo, gotinha)
+    const inimigoGrande = () => new Inimigo(assets.imagemInimigoGrande, troll)
+    const inimigoVoador = () => new Inimigo(assets.imagemVoador, gotaVoadora)
+    this.#tiposInimigos = [inimigo, inimigoGrande, inimigoVoador]
+    this.adicionarInimigo()
   }
 
-  get inimigoAtual() {
-    return this.#inimigos[this.#indiceInimigoAtual]
+  get inimigos(): readonly Inimigo[] {
+    return this.#inimigos
   }
 
   update() {
-    this.inimigoAtual.update()
+    for (const inimigo of this.#inimigos)
+      this.moverInimigo(inimigo)
+  }
 
-    if (this.inimigoAtual.estaForaDaTela()) {
-      this.resetar()
-    }
+  moverInimigo(inimigoAtual: Inimigo) {
+    inimigoAtual.update()
+
+    this.verificaSeAdiocionaInimigo(inimigoAtual)
+
+    if (inimigoAtual.estaForaDaTela())
+      this.destruir(inimigoAtual)
 
   }
 
-  private proximoInimigo() {
-    this.#indiceInimigoAtual = Math.floor(p5.random(0, this.#inimigos.length))
+  private verificaSeAdiocionaInimigo(inimigoAtual: Inimigo) {
+    if (inimigoAtual.noMeioDaTela()
+      && (
+        (this.dificudade === Dificuldade.MEDIO && this.#inimigos.length < 2)
+        || (this.dificudade === Dificuldade.DIFICIL && this.#inimigos.length < 3)
+      )) {
+      this.adicionarInimigo()
+    }
+  }
+
+  private adicionarInimigo() {
+    const novoInimigo = this.obterInimigoRandom()
+    novoInimigo.reposicionar()
+    novoInimigo.velocidade = Math.floor(p5.random(10, 30))
+    this.#inimigos.push(novoInimigo)
+  }
+
+  private obterInimigoRandom() {
+    return this.#tiposInimigos[
+      Math.floor(p5.random(0, this.#tiposInimigos.length))
+    ]()
   }
 
   draw() {
-    this.inimigoAtual.draw()
+    for (const inimigo of this.#inimigos)
+      inimigo.draw()
+  }
+
+  destruir(inimigo: Inimigo) {
+    this.#inimigos = this.#inimigos.filter(i => i !== inimigo)
+    this.adicionarInimigo()
   }
 
   resetar() {
-    this.proximoInimigo()
-    this.inimigoAtual.reposicionar()
-    this.inimigoAtual.velocidade = Math.floor(p5.random(10, 30))
+    this.#inimigos = []
+    this.adicionarInimigo()
   }
-
 
 }

@@ -70,6 +70,14 @@ export class Personagem extends AnimacaoSprite {
     this.#velocidadePulo = this.#forçaPulo
   }
 
+  colidiuComVarios(inimigos: readonly AnimacaoSprite[]) {
+    for (const inimigo of inimigos)
+      if (this.colidiu(inimigo))
+        return true
+
+    return false
+  }
+
   colidiu(inimigo: AnimacaoSprite) {
     if (this.invencivel) return false
 
@@ -86,8 +94,8 @@ export class Personagem extends AnimacaoSprite {
   ficaInvensivel() {
     this.invencivel = true
     this.#contropeDePisca = 0
-    setTimeout(() => { 
-      this.invencivel = false 
+    setTimeout(() => {
+      this.invencivel = false
       this.exibe = true
     }, 1000)
   }
