@@ -32,7 +32,7 @@ export class JogoCena implements Cena {
 
   setup() {
     this.assets.musica.loop()
-    this.assets.musica.setVolume(.1)
+    this.assets.musica.setVolume(.3)
   }
 
   keyPressed() {

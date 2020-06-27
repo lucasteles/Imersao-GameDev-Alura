@@ -22,6 +22,8 @@ export class InicioCena implements Cena {
     this.texto()
   }
 
+  setup() {}
+
   private texto() {
     p5.push()
 

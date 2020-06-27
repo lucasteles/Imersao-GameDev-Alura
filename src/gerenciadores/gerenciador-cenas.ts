@@ -18,12 +18,19 @@ export class GerenciadorCenas {
   constructor(assets: AssetsDoJogo, cena: NomeCena) {
     this.#cenas = obterCenas(assets, this)
     this.#nomeCena = cena
-
     this.alterarCena = this.alterarCena.bind(this)
+
+    this.setupDasCenas()
+
   }
 
   get cenaAtual() {
     return this.#cenas[this.#nomeCena]
+  }
+
+  setupDasCenas() {
+    for (const key in this.#cenas)
+        this.#cenas[key as NomeCena].setup()
   }
 
   alterarCena(cena: NomeCena): void {

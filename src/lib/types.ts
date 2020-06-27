@@ -7,7 +7,7 @@ export type Retangulo = Ponto & Mensuravel
 
 export interface Desenhavel { draw(): void }
 export interface TrataKeypress { draw(): void }
-export type Cena  = Desenhavel & TrataKeypress
+export type Cena = Desenhavel & TrataKeypress & { setup(): void }
 
 export function ponto(x: number, y: number) {
   return p5.createVector(x, y)
