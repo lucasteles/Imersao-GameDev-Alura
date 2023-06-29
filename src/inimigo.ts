@@ -1,5 +1,5 @@
-import { AnimacaoSprite } from './animacaoSprite'
-import { DadosInimigo } from './inimigos'
+import { AnimacaoSprite } from '~/animacaoSprite'
+import { DadosInimigo } from '~/inimigos'
 
 export class Inimigo extends AnimacaoSprite {
   velocidade = 10

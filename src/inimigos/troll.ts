@@ -1,4 +1,4 @@
-import { InformaçõesSpriteSheet, ponto, Retangulo } from '../lib/types'
+import { InformaçõesSpriteSheet, ponto, Retangulo } from '~/lib/types'
 import { DadosInimigo } from '.'
 
 const tamanhoNaTela = { width: 200, height: 200 }
@@ -12,7 +12,7 @@ const getSpriteInfo = (imagem: P5.Image) => <InformaçõesSpriteSheet>{
   quadrosEmBranco: 2,
 }
 const posicaoInicial = () => ponto(
-  p5.width, 0
+  p.width, 0
 )
 
 const colisor: Retangulo = {

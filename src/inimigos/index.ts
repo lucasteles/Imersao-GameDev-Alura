@@ -1,4 +1,4 @@
-import { InformaçõesSpriteSheet, Ponto, Mensuravel, Retangulo } from '../lib/types'
+import { InformaçõesSpriteSheet, Ponto, Mensuravel, Retangulo } from '~/lib/types'
 
 export interface DadosInimigo {
   tamanhoNaTela: Mensuravel

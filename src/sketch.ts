@@ -1,25 +1,24 @@
-import { getAssets } from './preload'
-import { toggleDebugState, setDebugState } from './lib/config'
-import { GerenciadorCenas } from './gerenciadores/gerenciador-cenas'
+import { getAssets } from '~/lib/preload'
+import { toggleDebugState, setDebugState } from '~/lib/config'
+import { GerenciadorCenas } from '~/gerenciadores/gerenciador-cenas'
 
-let gerenciadorDeCenas: GerenciadorCenas
+let gerenciadorDeCenas: GerenciadorCenas | undefined
 
 export function setup() {
   const assets = getAssets()
-  p5.createCanvas(p5.windowWidth, p5.windowHeight)
+  p.createCanvas(p.windowWidth, p.windowHeight)
   setDebugState(true)
-  p5.frameRate(40)
-
+  p.frameRate(40)
   gerenciadorDeCenas = new GerenciadorCenas(assets, 'inicio')
 }
 
 export function keyPressed() {
-  if (p5.key === ' ')
+  if (p.key === ' ')
     toggleDebugState()
 
-  gerenciadorDeCenas.cenaAtual.keyPressed()
+  gerenciadorDeCenas?.cenaAtual.keyPressed()
 }
 
 export function draw() {
-  gerenciadorDeCenas.cenaAtual.draw()
-} 
+  gerenciadorDeCenas?.cenaAtual.draw()
+}

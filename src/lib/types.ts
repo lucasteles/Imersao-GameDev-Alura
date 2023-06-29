@@ -1,16 +1,15 @@
-export type Ponto = { x: number; y: number }
+
+export interface Ponto { x: number; y: number }
+export interface Desenhavel { draw(): void }
 export interface Mensuravel {
   width: number
   height: number
 }
 export type Retangulo = Ponto & Mensuravel
-
-export interface Desenhavel { draw(): void }
-export interface TrataKeypress { draw(): void }
-export type Cena = Desenhavel & TrataKeypress & { setup(): void }
+export type Cena = Desenhavel & { setup(): void }
 
 export function ponto(x: number, y: number) {
-  return p5.createVector(x, y)
+  return p.createVector(x, y)
 }
 
 export interface InformaçõesSpriteSheet {

@@ -1,28 +1,26 @@
-
-
 export class Cenario {
 
   #image1X = 0
-  #image2X = p5.width
+  #image2X = p.width
 
   constructor(
-    private readonly imagem: P5.Image, 
+    private readonly imagem: P5.Image,
     private readonly velocidade: number) { }
 
   update() {
     this.#image1X -= this.velocidade
     this.#image2X -= this.velocidade
 
-    if (this.#image1X < -p5.width)
-      this.#image1X = p5.width
+    if (this.#image1X < -p.width)
+      this.#image1X = p.width
 
-    if (this.#image2X < -p5.width)
-      this.#image2X = p5.width
+    if (this.#image2X < -p.width)
+      this.#image2X = p.width
   }
 
   draw() {
-    p5.image(this.imagem, this.#image1X, 0, p5.width, p5.height)
-    p5.image(this.imagem, this.#image2X, 0, p5.width, p5.height)
+    p.image(this.imagem, this.#image1X, 0, p.width, p.height)
+    p.image(this.imagem, this.#image2X, 0, p.width, p.height)
   }
 
 }

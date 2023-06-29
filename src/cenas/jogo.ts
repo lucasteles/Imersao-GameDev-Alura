@@ -1,10 +1,10 @@
-import { AssetsDoJogo } from '../preload'
-import { Pontuação } from '../pontuacao'
-import { Personagem } from '../personagem'
-import { GerenciadorInimigos, Dificuldade } from '../gerenciadores/gerenciador-inimigos'
-import { Cenario } from '../cenario'
-import { Cena } from '../lib/types'
-import { Vida } from '../vida'
+import { AssetsDoJogo } from '~/lib/preload'
+import { Pontuação } from '~/ui/pontuacao'
+import { Personagem } from '~/personagem'
+import { GerenciadorInimigos, Dificuldade } from '~/gerenciadores/gerenciador-inimigos'
+import { Cenario } from '~/cenario'
+import { Cena } from '~/lib/types'
+import { Vida } from '~/ui/vida'
 
 export class JogoCena implements Cena {
 
@@ -36,10 +36,10 @@ export class JogoCena implements Cena {
   }
 
   keyPressed() {
-    if (p5.key === 'ArrowUp')
+    if (p.key === 'ArrowUp')
       this.personagem.pula()
 
-    if (p5.key && this.gameOver)
+    if (p.key && this.gameOver)
       this.reiniciar()
   }
 
@@ -48,12 +48,12 @@ export class JogoCena implements Cena {
     this.gerenciadorInimigos.resetar()
     this.ultimaVida = 0
     this.vida.resetar()
-    p5.loop()
+    p.loop()
   }
 
   dano() {
     this.vida.perdeVida()
-    this.personagem.ficaInvensivel()
+    this.personagem.ficaInvencivel()
 
     if (this.vida.morreu()) {
       this.perdeu()
@@ -62,12 +62,12 @@ export class JogoCena implements Cena {
   }
 
   perdeu() {
-    p5.draw()
-    p5.image(this.gameOverImage,
-      p5.width / 2 - this.gameOverImage.width / 2,
-      p5.height / 2 - this.gameOverImage.height / 2)
+    p.draw()
+    p.image(this.gameOverImage,
+      (p.width - this.gameOverImage.width) / 2,
+      (p.height - this.gameOverImage.height) / 2)
     this.gameOver = true
-    p5.noLoop()
+    p.noLoop()
   }
 
   private ajustaDificuldade() {

@@ -1,9 +1,8 @@
-import { Inimigo } from '../inimigo'
-import { AssetsDoJogo } from '../preload'
-
-import { gotinha } from '../inimigos/gotinha'
-import { gotaVoadora } from '../inimigos/gota-voadora'
-import { troll } from '../inimigos/troll'
+import { Inimigo } from '~/inimigo'
+import { AssetsDoJogo } from '~/lib/preload'
+import { gotinha } from '~/inimigos/gotinha'
+import { gotaVoadora } from '~/inimigos/gota-voadora'
+import { troll } from '~/inimigos/troll'
 
 export enum Dificuldade {
   FACIL, MEDIO, DIFICIL
@@ -56,13 +55,13 @@ export class GerenciadorInimigos {
   private adicionarInimigo() {
     const novoInimigo = this.obterInimigoRandom()
     novoInimigo.reposicionar()
-    novoInimigo.velocidade = Math.floor(p5.random(10, 30))
+    novoInimigo.velocidade = Math.floor(p.random(10, 30))
     this.#inimigos.push(novoInimigo)
   }
 
   private obterInimigoRandom() {
     return this.#tiposInimigos[
-      Math.floor(p5.random(0, this.#tiposInimigos.length))
+      Math.floor(p.random(0, this.#tiposInimigos.length))
     ]()
   }
 

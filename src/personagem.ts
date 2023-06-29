@@ -1,6 +1,6 @@
-import { InformaçõesSpriteSheet, ponto, Retangulo } from './lib/types'
-import { AnimacaoSprite } from './animacaoSprite'
-import { ALTURA_MINIMA } from './lib/config'
+import { InformaçõesSpriteSheet, ponto, Retangulo } from '~/lib/types'
+import { AnimacaoSprite } from '~/animacaoSprite'
+import { ALTURA_MINIMA } from '~/lib/config'
 
 const numeroDeLinhasEColunas = 4
 const tamanhoNaTela = { width: 110, height: 135 }
@@ -18,7 +18,7 @@ const colisor: Retangulo = {
   width: 50, height: 110
 }
 
-const posicaoInicial = () => ponto(0, ALTURA_MINIMA)
+const posicaoInicial = () => ponto(110, ALTURA_MINIMA)
 
 enum EstadoPersonagem {
   Correndo,
@@ -54,7 +54,6 @@ export class Personagem extends AnimacaoSprite {
   }
 
   pula() {
-
     switch (this.#estado) {
       case EstadoPersonagem.Correndo:
         this.#estado = EstadoPersonagem.Pulo
@@ -84,14 +83,14 @@ export class Personagem extends AnimacaoSprite {
     const eu = this.colisor
     const ele = inimigo.colisor
 
-    return p5.collideRectRect(
+    return p.collideRectRect(
       eu.x, eu.y, eu.width, eu.height,
       ele.x, ele.y, ele.width, ele.height
     )
 
   }
 
-  ficaInvensivel() {
+  ficaInvencivel() {
     this.invencivel = true
     this.#contropeDePisca = 0
     setTimeout(() => {

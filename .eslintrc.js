@@ -5,13 +5,13 @@ module.exports = {
     },
     "parser": "@typescript-eslint/parser",
     "extends": [
-        "plugin:@typescript-eslint/recommended" 
+        "plugin:@typescript-eslint/recommended"
     ],
     "parserOptions": {
         "project": "tsconfig.json",
         "sourceType": "module"
     },
-    "plugins": [ "@typescript-eslint" ],
+    "plugins": ["@typescript-eslint"],
     "rules": {
         "@typescript-eslint/member-delimiter-style": [
             "error",
@@ -39,7 +39,7 @@ module.exports = {
         {
             "files": ["**/*.spec.*"],
             "rules": {
-              "@typescript-eslint/no-explicit-any": "off"
+                "@typescript-eslint/no-explicit-any": "off"
             }
         }
     ]

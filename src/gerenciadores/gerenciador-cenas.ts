@@ -1,6 +1,6 @@
-import { AssetsDoJogo } from '../preload'
-import { JogoCena } from '../cenas/jogo'
-import { InicioCena } from '../cenas/inicio'
+import { AssetsDoJogo } from '~/lib/preload'
+import { JogoCena } from '~/cenas/jogo'
+import { InicioCena } from '~/cenas/inicio'
 
 const obterCenas = (assets: AssetsDoJogo, gerenciador: GerenciadorCenas) => ({
   jogo: new JogoCena(assets),
@@ -30,7 +30,7 @@ export class GerenciadorCenas {
 
   setupDasCenas() {
     for (const key in this.#cenas)
-        this.#cenas[key as NomeCena].setup()
+      this.#cenas[key as NomeCena].setup()
   }
 
   alterarCena(cena: NomeCena): void {

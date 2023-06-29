@@ -1,6 +1,6 @@
-import { Ponto, InformaçõesSpriteSheet, Mensuravel, Retangulo, ponto } from './lib/types'
-import { getDebugState } from './lib/config'
-import { range, xprod } from 'ramda'
+import { Ponto, InformaçõesSpriteSheet, Mensuravel, Retangulo, ponto } from '~/lib/types'
+import { getDebugState } from '~/lib/config'
+import { range } from 'remeda'
 
 export class AnimacaoSprite {
 
@@ -19,7 +19,7 @@ export class AnimacaoSprite {
     posicao: Ponto,
     colisor?: Retangulo,
   ) {
-    this.posicao = ponto(posicao.x, p5.height - tamanhoNaTela.height - posicao.y)
+    this.posicao = ponto(posicao.x, p.height - tamanhoNaTela.height - posicao.y)
     this.posicaoInicial = ponto(this.posicao.x, this.posicao.y)
     this.#frames = calcularPontos(spriteInfo)
     this.colisorBase = this.ajustarColisor(colisor)
@@ -57,7 +57,7 @@ export class AnimacaoSprite {
       return
 
     const posicaoDoFrame = this.#frames[this.#frameAtual]
-    p5.image(
+    p.image(
       this.spriteInfo.imagem,
       this.posicao.x, this.posicao.y,
       this.tamanhoNaTela.width, this.tamanhoNaTela.height,
@@ -65,19 +65,19 @@ export class AnimacaoSprite {
       this.spriteInfo.frame.width, this.spriteInfo.frame.height)
 
     if (this.debug || getDebugState()) {
-      p5.push()
-      p5.fill(255, 0, 0, 90)
+      p.push()
+      p.fill(255, 0, 0, 90)
 
       const colisor = this.colisor
-      p5.rect(
+      p.rect(
         colisor.x, colisor.y,
         colisor.width, colisor.height)
 
-      p5.fill('white')
-      p5.text(`x:${colisor.x} y:${colisor.y}\nw:${colisor.width} h:${colisor.height}`,
+      p.fill('white')
+      p.text(`x:${colisor.x} y:${colisor.y}\nw:${colisor.width} h:${colisor.height}`,
         colisor.x, colisor.y)
 
-      p5.pop()
+      p.pop()
     }
   }
 }
@@ -93,8 +93,9 @@ function calcularPontos({
   const linhas = range(0, numeroLinhas)
     .map(i => i * height)
 
-  const pontosCalculados = xprod(linhas, colunas)
-    .map(([y, x]) => <Ponto>{ x, y })
+  const pontosCalculados =
+    linhas.flatMap(y => colunas.map(x => ({ x, y })))
 
-  return pontosCalculados.slice(0, pontosCalculados.length - (quadrosEmBranco || 0))
+  return pontosCalculados
+    .slice(0, pontosCalculados.length - (quadrosEmBranco || 0))
 }
