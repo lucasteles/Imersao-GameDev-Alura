@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.html",
+  "packageManager": "pnpm@8.6.5",
   "scripts": {
+    "preinstall": "only-allow pnpm || rm -rf node_modules",
     "preview": "vite preview --open --port 4242",
     "start": "vite --open --port 4242",
     "build": "tsc && vite build",
@@ -21,6 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "eslint": "^8.43.0",
+    "only-allow": "^1.1.1",
     "typescript": "^5.1.5",
     "vite": "^4.3.9"
   },
